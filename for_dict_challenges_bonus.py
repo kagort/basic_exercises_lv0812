@@ -35,8 +35,6 @@ import uuid
 import datetime
 
 import lorem
-
-
 def generate_chat_history():
     messages_amount = random.randint(200, 1000)
     users_ids = list(
@@ -65,6 +63,61 @@ def generate_chat_history():
         })
     return messages
 
+# Задание 1. Вывести айди пользователя, который написал больше всех сообщений.
+def most_messages_user(messages):
+    message_count = {}
+    for item in messages:
+        user_id = item['sent_by']
+        if user_id not in message_count:
+            message_count[user_id] = 0
+        else:
+            message_count[user_id] += 1
+
+    max_user = None
+    max_count = 0
+    for user_id in message_count:
+        count = message_count[user_id]
+        if count > max_count:
+            max_user = user_id
+            max_count = count
+
+    return f"Пользователь {max_user}: написал {max_count} сообщений. Больше всех!"
+
+#Задание 2. Вывести айди пользователя, на сообщения которого больше всего отвечали (Переделать)
+
+''''def most_reponded_user(messages):
+    reply_count = {}
+    for item in messages:
+        the_most_popular_message_id = item['reply_for']
+        user_id = the_most_popular_message_id['sent_by']
+
+        #reply_count[the_most_popular_message_id] = reply_count.get(the_most_popular_message_id, 0)+1
+
+        max_user = None
+        max_answer_count = 0
+        for the_most_popular_message_id in reply_count:
+            count = reply_count[the_most_popular_message_id]
+            if count > max_answer_count:
+                max_user = user_id
+                max_answer_count = count
+    return f'Пользователь {max_user} на свои сообщения получил {max_answer_count} ответов. Больше всех!'  '''''
+
+
+
 
 if __name__ == "__main__":
-    print(generate_chat_history())
+
+    messages = generate_chat_history()
+    print(messages)
+
+    print(most_messages_user(messages))
+    print()
+
+
+
+
+
+
+
+
+
